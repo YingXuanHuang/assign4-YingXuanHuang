@@ -101,6 +101,18 @@ void setup() {
 	// Initialize soidiers and their position
 
 	// Initialize cabbages and their position
+  cabbageX =new float [8];
+  cabbageY =new float [6];
+  
+  for(int i=0; i<cabbageX.length; i++){
+     cabbageX[i]++;
+   }
+  
+  for(int j=0; j<cabbageY.length; j++){
+     cabbageY[j]++;    
+     } 
+
+  // empty
 
 }
 
@@ -162,6 +174,45 @@ void draw() {
 				
 			}
 		}
+
+    // stone
+    //1-8
+    for(int i=0; i<8; i++){
+        image(stones[0][4], i * SOIL_SIZE, i * SOIL_SIZE);
+        soilHealth[i][i] = 30;
+      }
+      
+    //9-16
+    for(int i=80; i<width; i+=320){
+        for(int j=80*8; j<80*16; j+=80){
+          if(j==80*9 || j==80*10 || j==80*13 || j==80*14 ){
+            image(stones[0][4],i-80,j); 
+            image(stones[0][4],i+160,j);
+            soilHealth[i/80-1][j/80] = 30;
+            soilHealth[i/80+2][j/80] = 30;
+          }else{
+            image(stones[0][4],i,j); 
+            image(stones[0][4],i+80,j);  
+            soilHealth[i/80][j/80] = 30;
+            soilHealth[i/80+1][j/80] = 30;
+            } // else 
+        }
+      }
+     
+     // 17-24
+     for(int i=0; i<8; i++){
+      for(int j=0; j<8; j++){
+       if((i+j)%3==1){
+         image(stones[0][4],80*i,(j+16)*80);
+         soilHealth[i][j+16] = 30;
+       }
+     if((i+j)%3==2){
+       image(stones[0][4],80*i,(j+16)*80);
+       image(stones[1][4],80*i,(j+16)*80);
+       soilHealth[i][j+16] = 45;
+       }
+      }
+     }   
 
 		// Cabbages
 		// > Remember to check if playerHealth is smaller than PLAYER_MAX_HEALTH!
@@ -310,6 +361,9 @@ void draw() {
 		popMatrix();
 
 		// Health UI
+    for(int x=10; x<10+70*playerHealth; x+=70){
+      image(life,x,10);
+    }
 
 		break;
 
@@ -346,7 +400,14 @@ void draw() {
 				// Initialize soidiers and their position
 
 				// Initialize cabbages and their position
-				
+				for(int i=0; i<cabbageX.length; i++){
+        for(int j=0; j<cabbageY.length; j++){ 
+        image(cabbage, cabbageX[i], cabbageY[j]);
+        } 
+        }
+      
+       
+
 			}
 
 		}else{
